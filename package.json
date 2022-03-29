@@ -1,0 +1,61 @@
+{
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "dependencies": {
+    "@stitches/react": "^1.2.6",
+    "axios": "^0.26.0",
+    "next": "12.1.0",
+    "next-seo": "^5.1.0",
+    "notion-client": "^4.16.1",
+    "notion-utils": "^4.16.0",
+    "prismjs": "^1.27.0",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-notion-x": "^4.16.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "16.2.1",
+    "@commitlint/config-conventional": "16.2.1",
+    "@types/node": "17.0.18",
+    "@types/react": "17.0.39",
+    "@types/react-dom": "17.0.11",
+    "@typescript-eslint/eslint-plugin": "5.12.0",
+    "@typescript-eslint/parser": "5.12.0",
+    "commitizen": "4.2.4",
+    "cz-conventional-changelog": "3.3.0",
+    "eslint": "8.9.0",
+    "eslint-config-next": "12.1.0",
+    "eslint-config-prettier": "8.4.0",
+    "eslint-import-resolver-typescript": "2.5.0",
+    "eslint-plugin-prettier": "4.0.0",
+    "husky": "7.0.4",
+    "lint-staged": "12.3.4",
+    "prettier": "2.5.1",
+    "typescript": "4.5.5"
+  },
+  "license": "MIT",
+  "lint-staged": {
+    "./src/**/*.{ts,js,jsx,tsx}": [
+      "npm run lint --fix",
+      "npm run format"
+    ]
+  },
+  "private": true,
+  "scripts": {
+    "build": "next build",
+    "dev": "next",
+    "export": "next build && next export",
+    "start": "next start",
+    "-------------------------": "",
+    "clear": "rimraf ./.next/ ./out/",
+    "commit": "cz",
+    "format": "prettier --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\" --write",
+    "lint": "eslint --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\"",
+    "postinstall": "husky install",
+    "tsc": "tsc"
+  },
+  "version": "1.0.0"
+}
