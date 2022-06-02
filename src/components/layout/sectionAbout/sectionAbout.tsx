@@ -17,7 +17,7 @@ export const ComponentSectionAbout: NextPage = () => {
           <StyledSectionContentLinks>
             <a href="https://github.com/0x16c3">GitHub</a>
             <a href="https://twitter.com/0x16c3">Twitter</a>
-            <a href="https://instagram.com/0x16c3">Instagram</a>
+            <a href="https://instagram.com/emir.oencel">Instagram</a>
           </StyledSectionContentLinks>
         </StyledSectionContainerAbout>
       </StyledSectionContainerAboutMain>
