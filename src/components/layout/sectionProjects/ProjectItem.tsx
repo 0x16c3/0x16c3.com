@@ -5,7 +5,10 @@ import BLOG from '@/../blog.config';
 
 import Image from 'next/image';
 
-import { NotionRenderer, Equation, Code, Collection } from 'react-notion-x';
+import { NotionRenderer } from 'react-notion-x';
+import { Equation } from 'react-notion-x/build/third-party/equation';
+import { Code } from 'react-notion-x/build/third-party/code';
+import { Collection } from 'react-notion-x/build/third-party/collection';
 
 import {
   // styles
@@ -82,13 +85,12 @@ export const ProjectItem = ({ post, isActive, ...rootDOMAttributes }: { post: an
             <NotionRenderer
               recordMap={post.blockMap}
               components={{
-                equation: Equation,
-                code: Code,
-                collection: Collection,
-                collectionRow: () => {
+                Equation,
+                Code,
+                Collection: () => {
                   return <></>;
                 },
-                image: Image,
+                Image,
               }}
             />
           </StyledProjectItemContent>
