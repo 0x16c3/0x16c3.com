@@ -3,9 +3,9 @@ import { Post } from 'types';
 import { NotionAPI } from 'notion-client';
 import { idToUuid } from 'notion-utils';
 
-import { BasePageBlock } from 'notion-types/build/esm/block';
-import { Collection } from 'notion-types/build/esm/collection';
-import { ExtendedRecordMap } from 'notion-types/build/esm/maps';
+import { BasePageBlock } from 'notion-types/build/block';
+import { Collection } from 'notion-types/build/collection';
+import { ExtendedRecordMap } from 'notion-types/build/maps';
 
 import { filterPublishedPosts } from './filterPublishedPosts';
 import { getAllPageIds } from './getAllPageIds';
