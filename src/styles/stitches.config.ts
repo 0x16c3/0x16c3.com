@@ -73,8 +73,8 @@ export const globalStyles = globalCss({
     `https://fonts.googleapis.com/css2?family=Inter:wght@200;400;600;700;800&family=JetBrains+Mono:wght@300;500&display=swap`,
   ],
   'html': {
-    'fontSize': `10px`,
-    'user-select': `none`,
+    fontSize: `10px`,
+    //'user-select': `none`,
   },
 
   'html, body': {
@@ -107,6 +107,14 @@ export const globalStyles = globalCss({
     '&:hover': {
       color: `$accentPurple2`,
     },
+  },
+
+  '.loading-page': {
+    // centered text on loading page
+    display: `flex`,
+    justifyContent: `center`,
+    alignItems: `center`,
+    height: `100vh`,
   },
 
   ...StyledGlobalNotion,

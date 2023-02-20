@@ -1,7 +1,7 @@
 import { GetStaticProps } from 'next';
 import { Post, TagObj } from '@types';
 
-import { filterPublishedPosts, getAllPosts, getAllTags } from 'lib/notion';
+import { filterPublishedPosts, getPosts, getAllTags } from 'lib/notion';
 
 import { PageContainer } from '@components/pages/PageContainer';
 
@@ -18,7 +18,7 @@ export default function Home({ posts, tags, blockMap }: { posts: Post[]; tags: T
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const allPosts = await getAllPosts({ includePages: true });
+  const allPosts = await getPosts({ includePages: true });
   const posts = filterPublishedPosts({
     posts: allPosts,
     includePages: false,

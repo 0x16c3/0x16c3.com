@@ -1,7 +1,7 @@
 import { idToUuid } from 'notion-utils';
-import { GetAllPostsParams } from './getAllPosts';
+import { GetPostsParams } from './getPosts';
 
-export const getAllPageIds = (collectionQuery: GetAllPostsParams['collectionQuery'], viewId?: string): string[] => {
+export const getAllPageIds = (collectionQuery: GetPostsParams['collectionQuery'], viewId?: string): string[] => {
   const views = Object.values(collectionQuery)?.[0];
 
   let pageIds = [];

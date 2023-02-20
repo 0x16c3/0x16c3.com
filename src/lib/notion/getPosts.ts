@@ -12,7 +12,7 @@ import { getAllPageIds } from './getAllPageIds';
 import { getPageProperties } from './getPageProperties';
 import { getPostBlocks } from '.';
 
-export type GetAllPostsParams = {
+export type GetPostsParams = {
   id: string;
   includedPages: boolean;
   rawMetadata: BasePageBlock;
@@ -21,8 +21,13 @@ export type GetAllPostsParams = {
   schema: Collection['schema'];
 };
 
-export async function getAllPosts({ includePages = false }: { includePages: boolean }): Promise<Post[]> {
-  let id = BLOG.notionPageId;
+export async function getPosts({ id, includePages = false }: { id?: string; includePages: boolean }): Promise<Post[]> {
+  id = BLOG.notionPageId;
+  if (typeof id !== `string`) {
+    console.log(`pageId "${id}" is not a string`);
+    return [];
+  }
+
   const authToken = BLOG.notionAccessToken;
   const api = new NotionAPI({ authToken });
   const response = await api.getPage(id);
@@ -77,4 +82,11 @@ export async function getAllPosts({ includePages = false }: { includePages: bool
 
     return posts;
   }
+}
+
+export async function getNotionPage({ id }: { id: string }): Promise<ExtendedRecordMap> {
+  const authToken = BLOG.notionAccessToken;
+  const api = new NotionAPI({ authToken });
+  const recordMap = await api.getPage(id);
+  return recordMap;
 }

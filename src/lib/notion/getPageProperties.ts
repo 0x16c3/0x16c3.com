@@ -4,11 +4,11 @@ import { Post } from 'types';
 import { NotionAPI } from 'notion-client';
 import { getTextContent, getDateValue } from 'notion-utils';
 
-import { GetAllPostsParams } from './getAllPosts';
+import { GetPostsParams } from './getPosts';
 
 const excludeProperties = [`date`, `select`, `multi_select`, `person`];
 
-export const getPageProperties = async (id: string, block: GetAllPostsParams['block'], schema: GetAllPostsParams['schema']): Promise<Post> => {
+export const getPageProperties = async (id: string, block: GetPostsParams['block'], schema: GetPostsParams['schema']): Promise<Post> => {
   const authToken = BLOG.notionAccessToken;
   const api = new NotionAPI({ authToken });
   const rawProperties = Object.entries(block?.[id]?.value?.properties || []);

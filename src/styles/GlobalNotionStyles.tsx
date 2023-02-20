@@ -30,4 +30,8 @@ export const StyledGlobalNotion = {
       background: `transparent`,
     },
   },
+
+  '.notion-frame': {
+    padding: `0 !important`,
+  },
 };
