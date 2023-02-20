@@ -3,8 +3,7 @@ import { GetStaticProps } from 'next';
 
 import Image from 'next/image';
 
-import { getNotionPage } from 'lib/notion';
-import { getPageTitle } from 'notion-utils';
+import { getNotionPage, getPageTitle } from 'lib/notion';
 import { NotionRenderer } from 'react-notion-x';
 
 export default function NotionPage({ page, title }: { page: any; title: string }) {

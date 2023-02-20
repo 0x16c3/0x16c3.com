@@ -4,5 +4,6 @@ export * from './getPosts';
 export * from './getAllTags';
 export * from './getMetadata';
 export * from './getPageProperties';
+export * from './getPageTitle';
 export * from './getPostBlocks';
 export * from './getProfilePost';
