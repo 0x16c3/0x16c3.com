@@ -3,10 +3,6 @@
     "silent": true
   },
   "regions": [
-    "arn1",
-    "fra1",
-    "bru1",
-    "cdg1",
-    "lhr1"
+    "fra1"
   ]
 }
