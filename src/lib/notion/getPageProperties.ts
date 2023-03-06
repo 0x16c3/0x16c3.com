@@ -1,5 +1,5 @@
 import BLOG from '../../../blog.config';
-import { Post } from 'types';
+import { Post, PublicPage } from 'types';
 
 import { NotionAPI } from 'notion-client';
 import { getTextContent, getDateValue } from 'notion-utils';
@@ -8,7 +8,7 @@ import { GetPostsParams } from './getPosts';
 
 const excludeProperties = [`date`, `select`, `multi_select`, `person`];
 
-export const getPageProperties = async (id: string, block: GetPostsParams['block'], schema: GetPostsParams['schema']): Promise<Post> => {
+export const getPostProperties = async (id: string, block: GetPostsParams['block'], schema: GetPostsParams['schema']): Promise<Post> => {
   const authToken = BLOG.notionAccessToken;
   const api = new NotionAPI({ authToken });
   const rawProperties = Object.entries(block?.[id]?.value?.properties || []);
@@ -65,4 +65,20 @@ export const getPageProperties = async (id: string, block: GetPostsParams['block
     }
   }
   return properties as Post;
+};
+
+export const getPublicPageProperties = async (id: string, block: GetPostsParams['block'], schema: GetPostsParams['schema']): Promise<PublicPage> => {
+  const authToken = BLOG.notionAccessToken;
+  const api = new NotionAPI({ authToken });
+  const rawProperties = Object.entries(block?.[id]?.value?.properties || []);
+  const properties: Record<string, PublicPage[keyof PublicPage]> = {};
+  for (let i = 0; i < rawProperties.length; i++) {
+    const [key, val] = rawProperties[i];
+    properties.id = id;
+    const currentPostKey = schema[key]?.name as keyof PublicPage | undefined;
+    if (currentPostKey && schema[key]?.type && !excludeProperties.includes(schema[key].type)) {
+      properties[currentPostKey] = getTextContent(val as Parameters<typeof getTextContent>[0]);
+    }
+  }
+  return properties as PublicPage;
 };

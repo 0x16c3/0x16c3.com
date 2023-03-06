@@ -1,5 +1,5 @@
 import BLOG from '../../../blog.config';
-import { Post } from 'types';
+import { Post, PublicPage } from 'types';
 import { NotionAPI } from 'notion-client';
 import { idToUuid } from 'notion-utils';
 
@@ -9,7 +9,7 @@ import { ExtendedRecordMap } from 'notion-types/build/maps';
 
 import { filterPublishedPosts } from './filterPublishedPosts';
 import { getAllPageIds } from './getAllPageIds';
-import { getPageProperties } from './getPageProperties';
+import { getPostProperties, getPublicPageProperties } from './getPageProperties';
 import { getPostBlocks } from '.';
 
 export type GetPostsParams = {
@@ -52,7 +52,7 @@ export async function getPosts({ id, includePages = false }: { id?: string; incl
 
     for (let i = 0; i < pageIds.length; i++) {
       const id = pageIds[i];
-      const properties = (await getPageProperties(id, block, schema)) || null;
+      const properties = (await getPostProperties(id, block, schema)) || null;
 
       // Add fullwidth, createdtime to properties
       properties.createdTime = new Date(block[id].value?.created_time).toString();
@@ -81,6 +81,45 @@ export async function getPosts({ id, includePages = false }: { id?: string; incl
     }
 
     return posts;
+  }
+}
+
+export async function getPages({ id }: { id?: string }): Promise<PublicPage[]> {
+  id = BLOG.notionPublicPagesId;
+  if (typeof id !== `string`) {
+    console.log(`pageId "${id}" is not a string`);
+    return [];
+  }
+
+  const authToken = BLOG.notionAccessToken;
+  const api = new NotionAPI({ authToken });
+  const response = await api.getPage(id);
+
+  id = idToUuid(id);
+
+  const collection = Object.values(response.collection)[0]?.value;
+  const collectionQuery = response.collection_query;
+  const block = response.block;
+  const schema = collection?.schema;
+
+  const rawMetadata = block[id].value as BasePageBlock;
+
+  // Check Type
+  if (rawMetadata?.type !== `collection_view_page` && rawMetadata?.type !== `collection_view`) {
+    console.log(`pageId "${id}" is not a database`);
+    return [];
+  } else {
+    // Construct Data
+    const pageIds = getAllPageIds(collectionQuery);
+    const data = [];
+
+    for (let i = 0; i < pageIds.length; i++) {
+      const id = pageIds[i];
+      const properties = (await getPublicPageProperties(id, block, schema)) || null;
+      data.push(properties);
+    }
+
+    return data;
   }
 }
 

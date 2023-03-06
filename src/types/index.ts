@@ -36,6 +36,12 @@ export type Post = {
   blockMap: any;
 };
 
+export type PublicPage = {
+  title: string;
+  pageId: string;
+  slug: string;
+};
+
 export type TagObj = { [key: string]: number };
 
 export type BlogConfig = {

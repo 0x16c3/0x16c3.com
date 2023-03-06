@@ -11,8 +11,10 @@ import { MetadataPreload } from '@/components/_meta/metadataPreload';
 const Prism = require(`prismjs`);
 
 //load all the language files
+require(`styles/prism-atom-dark.css`);
 require(`prismjs/components/prism-python`);
 require(`prismjs/components/prism-c`);
+require(`prismjs/components/prism-csharp`);
 
 export default function App({ Component, pageProps }: AppProps) {
   globalStyles();

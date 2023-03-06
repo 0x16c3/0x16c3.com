@@ -21,6 +21,7 @@ const BLOG = {
   },
 
   notionPageId: process.env.NOTION_PAGE_ID, // DO NOT CHANGE THIS!
+  notionPublicPagesId: process.env.NOTION_PUBLIC_PAGES_ID, // DO NOT CHANGE THIS!
   notionAccessToken: process.env.NOTION_ACCESS_TOKEN, // Useful if you prefer not to make your database public
 
   isProd: process.env.VERCEL_ENV === 'production', // distinguish between development and production environment (ref: https://vercel.com/docs/environment-variables#system-environment-variables)

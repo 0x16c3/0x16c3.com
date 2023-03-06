@@ -3,8 +3,9 @@ import { GetStaticProps } from 'next';
 
 import Image from 'next/image';
 
-import { getNotionPage, getPageTitle } from 'lib/notion';
+import { getNotionPage, getPageTitle, getPages } from 'lib/notion';
 import { NotionRenderer } from 'react-notion-x';
+import { ExtendedRecordMap } from 'notion-types';
 
 export default function NotionPage({ page, title }: { page: any; title: string }) {
   React.useEffect(() => {
@@ -20,16 +21,41 @@ export default function NotionPage({ page, title }: { page: any; title: string }
 }
 
 export async function getStaticPaths() {
+  const pages = await getPages({});
+  const arrPaths = [];
+  for (const page of pages) {
+    arrPaths.push(page.pageId);
+    arrPaths.push(page.slug);
+  }
+
   return {
-    paths: [],
+    paths: arrPaths.map((pageId) => ({ params: { pageId } })),
     fallback: true,
   };
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const pageId = context.params?.pageId as string;
-  const page = await getNotionPage({ id: pageId });
-  const title = getPageTitle(page);
+
+  let page: ExtendedRecordMap;
+  let title: string | null;
+
+  try {
+    page = await getNotionPage({ id: pageId });
+    title = getPageTitle(page);
+  } catch (err) {
+    const pages = await getPages({});
+    const id = pages.find((page) => page.pageId === pageId || page.slug === pageId);
+
+    if (!id) console.error(err);
+
+    page = await getNotionPage({ id: id?.pageId as string });
+    title = getPageTitle(page);
+
+    if (!page) {
+      console.error(err);
+    }
+  }
 
   return {
     props: {
