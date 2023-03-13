@@ -20,15 +20,8 @@ export const StyledGlobalNotion = {
   },
 
   '.notion-code': {
-    'margin': `5rem 0 !important`,
-    'width': `100% !important`,
-
-    '*': {
-      fontSize: `1.1rem`,
-      boxShadow: `none`,
-      textShadow: `none`,
-      background: `transparent`,
-    },
+    margin: `1rem 0 !important`,
+    width: `100% !important`,
   },
 
   '.notion-frame': {

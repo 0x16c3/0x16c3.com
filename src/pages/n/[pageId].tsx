@@ -3,6 +3,7 @@ import { GetStaticProps } from 'next';
 
 import Image from 'next/image';
 
+import { Code } from '@/components/atomic/Code';
 import { getNotionPage, getPageTitle, getPages } from 'lib/notion';
 import { NotionRenderer } from 'react-notion-x';
 import { ExtendedRecordMap } from 'notion-types';
@@ -17,7 +18,7 @@ export default function NotionPage({ page, title }: { page: any; title: string }
     return <div className="loading-page">Fetching page...</div>;
   }
 
-  return <NotionRenderer recordMap={page} fullPage={true} disableHeader={true} components={{ nextImage: Image }} />;
+  return <NotionRenderer recordMap={page} fullPage={true} disableHeader={true} components={{ nextImage: Image, Code }} />;
 }
 
 export async function getStaticPaths() {
